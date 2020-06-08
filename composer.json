@@ -1,0 +1,6 @@
+{
+    "name": "zhangrenjie/rabbit-mq",
+    "require": {
+      "php-amqplib/php-amqplib": ">=2.9.0"
+    }
+}
