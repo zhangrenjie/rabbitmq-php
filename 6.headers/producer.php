@@ -41,38 +41,59 @@ try {
     $content1 = 'This is a log message1 from the exchange which named \'log_system_headers\'';
     $properties = [
         'dilivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,//投递模式
-        'headers' => [//设置消息的header
-            'type' => 'log',
-            'level' => 'error',
-        ],
     ];
     $message1 = new AMQPMessage($content1, $properties);
+
+    //设置消息的header
+    $headerInfo = [
+        'type' => 'log',
+        'level' => 'error',
+    ];
+    $headers = new \PhpAmqpLib\Wire\AMQPTable($headerInfo);
+    $headers->set('shortshort', -5, \PhpAmqpLib\Wire\AMQPTable::T_INT_SHORTSHORT);
+    $headers->set('short', -1024, \PhpAmqpLib\Wire\AMQPTable::T_INT_SHORT);
+    $message1->set('application_headers', $headers);
 
     //构造消息
     $content2 = 'This is a log message2 from the exchange which named \'log_system_headers\'';
     $properties = [
         'dilivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,//投递模式
-        'headers' => [//设置消息的header
-            'type' => 'log',
-            'level' => 'notice',
-        ],
     ];
     $message2 = new AMQPMessage($content2, $properties);
+
+    //设置消息的header
+    $headerInfo = [
+        'type' => 'log',
+        'level' => 'notice',
+    ];
+    $headers = new \PhpAmqpLib\Wire\AMQPTable($headerInfo);
+    $headers->set('shortshort', -5, \PhpAmqpLib\Wire\AMQPTable::T_INT_SHORTSHORT);
+    $headers->set('short', -1024, \PhpAmqpLib\Wire\AMQPTable::T_INT_SHORT);
+    $message2->set('application_headers', $headers);
+
 
     //构造消息
     $content3 = 'This is a log message3 from the exchange which named \'log_system_headers\'';
     $properties = [
         'dilivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,//投递模式
-        'headers' => [//设置消息的header
-            'type' => 'log',
-            'level' => 'warning',
-        ],
     ];
     $message3 = new AMQPMessage($content3, $properties);
+
+    //设置消息的header
+    $headerInfo = [
+        'type' => 'log',
+        'level' => 'warning',
+    ];
+    $headers = new \PhpAmqpLib\Wire\AMQPTable($headerInfo);
+    $headers->set('shortshort', -5, \PhpAmqpLib\Wire\AMQPTable::T_INT_SHORTSHORT);
+    $headers->set('short', -1024, \PhpAmqpLib\Wire\AMQPTable::T_INT_SHORT);
+    $message3->set('application_headers', $headers);
+
 
     //生产者将消息发到到交换机
     $channel->basic_publish($message1, $exchangeName, $routingKeyName);
     $channel->basic_publish($message2, $exchangeName, $routingKeyName);
+    $channel->basic_publish($message3, $exchangeName, $routingKeyName);
 
     //关闭连接
     $channel->close();

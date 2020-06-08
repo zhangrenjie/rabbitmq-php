@@ -49,11 +49,11 @@ try {
         'type' => 'log',
         'level' => 'notice',
     ];
-    $channel->queue_bind($tmpQueueName, $exchangeName, $routingKeyName, $noWait, $arguments);
+    $channel->queue_bind($tmpQueueName, $exchangeName, $routingKeyName, $noWait, new \PhpAmqpLib\Wire\AMQPTable($arguments));
 
     //消费消息
     $callback = function (\PhpAmqpLib\Message\AMQPMessage $message) {
-        echo "打印错误消息:" . $message->body;
+        echo "打印错误消息:" . $message->body . PHP_EOL;
         $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
     };
 

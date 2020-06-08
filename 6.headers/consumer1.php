@@ -27,7 +27,7 @@ try {
 
     //为通道创建交换机
     $exchangeName = 'log_system_headers';
-    $exchangeType = 'headers';
+    $exchangeType = PhpAmqpLib\Exchange\AMQPExchangeType::HEADERS;
     $passive = false;
     $durable = true;
     $autoDelete = false;
@@ -48,11 +48,11 @@ try {
         'type' => 'log',
         'level' => 'error',
     ];
-    $channel->queue_bind($tmpQueueName, $exchangeName, $routingKeyName, $noWait, $arguments);
+    $channel->queue_bind($tmpQueueName, $exchangeName, $routingKeyName, $noWait, new \PhpAmqpLib\Wire\AMQPTable($arguments));
 
     //消费消息
     $callback = function (\PhpAmqpLib\Message\AMQPMessage $message) {
-        echo "处理错误消息:" . $message->body;
+        echo "处理错误消息:" . $message->body . PHP_EOL;
         $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
     };
 
