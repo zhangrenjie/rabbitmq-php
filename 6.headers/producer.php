@@ -27,7 +27,7 @@ try {
 
     //为通道创建交换机
     $exchangeName = 'log_system_headers';
-    $exchangeType = 'headers';
+    $exchangeType = \PhpAmqpLib\Exchange\AMQPExchangeType::HEADERS;
     $passive = false;
     $durable = true;//持久化
     $autoDelete = false;
