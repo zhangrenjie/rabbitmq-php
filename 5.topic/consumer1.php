@@ -27,7 +27,7 @@ try {
 
     //为通道创建交换机
     $exchangeName = 'log_system_topic';
-    $exchangeType = 'topic';
+    $exchangeType = \PhpAmqpLib\Exchange\AMQPExchangeType::TOPIC;
     $passive = false;
     $durable = false;
     $autoDelete = false;

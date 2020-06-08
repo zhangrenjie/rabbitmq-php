@@ -28,7 +28,7 @@ try {
 
     //给通道创建交换机(fanout广播模式中生产者只能将消息发送交换机),也可以绑定交换机
     $exchangeName = 'register';//交换机名称
-    $exchangeType = 'fanout';//定义广播类型交换机
+    $exchangeType = \PhpAmqpLib\Exchange\AMQPExchangeType::FANOUT;//定义广播类型交换机
     $passive = false;
     $durable = true;
     $autoDelete = false;

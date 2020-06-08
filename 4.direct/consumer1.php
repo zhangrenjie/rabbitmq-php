@@ -27,7 +27,7 @@ try {
 
     //为通道创建交换机
     $exchangeName = 'logs_system';
-    $exchangeType = 'direct';
+    $exchangeType = \PhpAmqpLib\Exchange\AMQPExchangeType::DIRECT;
     $passive = false;
     $durable = false;
     $autoDelete = false;
