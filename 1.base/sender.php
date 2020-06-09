@@ -39,12 +39,13 @@ try {
     //创建消息
     $content = 'Hello world , This is type 1 ,' . date('Y-m-d H:i:s');
     $properties = [
+        //设置投递模式
         'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,//持久化存储消息
     ];
     $message = new AMQPMessage($content, $properties);
 
     //通过通道发送消息
-    $exchangeName = '';//交换机名称
+    $exchangeName = '';//交换机名称，空则是使用系统提供的默认的交换机
     $routingKeyName = $queueName;//routing_key名称
     $channel->basic_publish($message, $exchangeName, $routingKeyName);
 

@@ -1,2 +1,2 @@
 # rabbitmq-php
->RabbmitMQ 6大模式
+>RabbmitMQ 模式

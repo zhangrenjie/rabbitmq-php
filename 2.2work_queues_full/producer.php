@@ -24,6 +24,7 @@ try {
 
     //创建通道
     $channel = $connection->channel();
+    $channel->basic_qos(null, 1, null);//通道每次只处理一条消息
 
     //通道绑定队列
     $queueName = 'work_queue';
@@ -35,17 +36,17 @@ try {
 
     for ($i = 1; $i <= 10000; $i++) {
         //构造消息
-        $content = $i.' -> Hello world , This is rabbitmq work queues model ' . date('Y-m-d H:i:s');
+        $content = $i . ' -> Hello world , This is rabbitmq work queues model ' . date('Y-m-d H:i:s');
 
         $properties = [
-            //传递模式
+            //消息传递模式
             'delivery_model' => AMQPMessage::DELIVERY_MODE_NON_PERSISTENT,//持久化
         ];
         $message = new AMQPMessage($content, $properties);
 
         //发送消息
-        $exchangeName = '';//交换机名称
-        $routingKeyName = $queueName;
+        $exchangeName = '';//交换机名称，空则为系统的默认交换机
+        $routingKeyName = $queueName;//发送消息必须通过交换机指定routing_key发送。
         $channel->basic_publish($message, $exchangeName, $routingKeyName);
     }
 

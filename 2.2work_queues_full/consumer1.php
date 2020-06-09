@@ -51,7 +51,7 @@ try {
 
     $consumerTag = '';
     $noLocal = false;
-    $noAck = false;//关闭自动确认消费消息
+    $noAck = false;//关闭自动确认消费消息（自动应答）
     $exclusive = false;
     $noWait = false;
 
