@@ -28,7 +28,7 @@ try {
     //为通道创建交换机
     $exchangeName = 'logs_system';
     $exchangeType = \PhpAmqpLib\Exchange\AMQPExchangeType::DIRECT;
-    $passive = false;
+    $passive = false;//是否检测同名队列
     $durable = false;
     $autoDelete = false;
     $channel->exchange_declare($exchangeName, $exchangeType, $passive, $durable, $autoDelete);

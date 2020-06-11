@@ -49,6 +49,13 @@ try {
         echo '消息' . $message->getBody() . '投递投递失败' . PHP_EOL;
     });
 
+    //一旦有消息不能被路由就会进入到该回调函数触发
+    $channel->set_return_listener(
+        function ($replyCode, $replyText, $exchange, $routingKey, AMQPMessage $message) {
+            echo "Message returned with content " . $message->body . PHP_EOL;
+        }
+    );
+
     //创建工作消息队列
     $queueName = 'test_queue_confirm';
     $passive = false;
@@ -76,11 +83,12 @@ try {
     $exchangeName = '';
     $routingKeyName = $queueName;
 
-    //投递消息
-    $channel->basic_publish($message, $exchangeName, $routingKeyName);
-
+    for ($i = 0; $i < 10; $i++) {
+        //投递消息
+        $channel->basic_publish($message, $exchangeName, $routingKeyName);
+    }
     //Waits for pending acks, nacks and returns from the server
-    $channel->wait_for_pending_acks_returns(5);//set wait time
+    $channel->wait_for_pending_acks_returns();//set wait time
 
 
     //关闭通道和连接

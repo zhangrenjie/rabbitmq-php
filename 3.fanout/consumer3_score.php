@@ -29,7 +29,7 @@ try {
     //给通道创建交换机(fanout广播模式中生产者只能将消息发送交换机),也可以绑定交换机
     $exchangeName = 'register';//交换机名称
     $exchangeType = \PhpAmqpLib\Exchange\AMQPExchangeType::FANOUT;//定义广播类型交换机
-    $passive = false;
+    $passive = false;//是否检测同名队列
     $durable = true;
     $autoDelete = false;
     $channel->exchange_declare($exchangeName, $exchangeType, $passive, $durable, $autoDelete);
@@ -37,7 +37,7 @@ try {
 
     //创建临时队列
     $queueName = '';//临时队列不需要指定队列名字
-    $passive = false;
+    $passive = false;//是否检测同名队列
     $durable = false;
     $autoDelete = false;
     $noWait = false;
