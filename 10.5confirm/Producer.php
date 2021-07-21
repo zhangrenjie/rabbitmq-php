@@ -79,7 +79,7 @@ try {
     //投递消息
     $channel->basic_publish($message, $exchangeName, $routingKeyName);
 
-    //Waits for pending acks, nacks and returns from the server
+    //Waits for pending acks, nacks and returns from the server 等待服务端应答
     $channel->wait_for_pending_acks_returns(5);//set wait time
 
 
