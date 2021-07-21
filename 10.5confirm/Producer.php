@@ -36,15 +36,15 @@ try {
     //创建通道
     $channel = $connection->channel();
 
-    //开启通道的confirm模式，
+    //开启通道的confirm模式，生成监听器
     $channel->confirm_select();
 
-    //成功投递消息
+    //监听到返回，成功投递消息
     $channel->set_ack_handler(function (AMQPMessage $message) {
         echo '消息' . $message->getBody() . '投递成功' . PHP_EOL;
     });
 
-    //未成功投递消息
+    //监听到返回，未成功投递消息
     $channel->set_nack_handler(function (AMQPMessage $message) {
         echo '消息' . $message->getBody() . '投递投递失败' . PHP_EOL;
     });
